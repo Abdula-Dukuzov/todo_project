@@ -55,7 +55,6 @@ class Task(models.Model):
     due_date = models.DateTimeField()
     is_completed = models.BooleanField(default=False)
 
-
     def save(self, *args, **kwargs):
         if not self.id:
             self.id = generate_hash_id(
