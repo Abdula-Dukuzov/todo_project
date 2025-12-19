@@ -20,6 +20,7 @@ class Category(models.Model):
         on_delete=models.CASCADE,
         related_name="categories"
     )
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -52,6 +53,8 @@ class Task(models.Model):
     )
     created_at = models.DateTimeField(default=timezone.now)
     due_date = models.DateTimeField()
+    is_completed = models.BooleanField(default=False)
+
 
     def save(self, *args, **kwargs):
         if not self.id:
