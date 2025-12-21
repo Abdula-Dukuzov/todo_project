@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from django.utils import timezone
 
 from apps.common.utils import generate_hash_id
 
@@ -51,8 +50,8 @@ class Task(models.Model):
         blank=True,
         related_name="tasks"
     )
-    created_at = models.DateTimeField(default=timezone.now)
-    due_date = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    due_date = models.DateTimeField(null=True, blank=True)
     is_completed = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
@@ -60,7 +59,7 @@ class Task(models.Model):
             self.id = generate_hash_id(
                 self.title,
                 str(self.user),
-                str(self.due_date)
+                str(self.due_date or "")
             )
         super().save(*args, **kwargs)
 
